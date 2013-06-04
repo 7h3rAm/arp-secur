@@ -1,4 +1,4 @@
 arp-secur v0.3
 
-The stateless nature of ARP introduces many inherent flaws that attackers leverage to cause havoc. This tool implements ideas proposed in the "Detecting ARP Spoofing: An Active Technique" paper by Mr. Vivek Ramachandran and Mr. Sukumar Nandi (http://www.vivekramachandran.com/docs/arp-spoofing.pdf). It uses a state maintenance features that help to identify malicious ARP requests/responses.
+The stateless nature of Address Resolution Protocol (ARP) introduces many inherent flaws that attackers leverage to cause havoc. This tool implements ideas proposed in the "Detecting ARP Spoofing: An Active Technique" paper by Mr. Vivek Ramachandran and Mr. Sukumar Nandi (http://www.vivekramachandran.com/docs/arp-spoofing.pdf). It uses state maintenance features that help to identify malicious ARP requests/responses.
 
