@@ -1,0 +1,34 @@
+# define addresses for localhost and destination
+lmac=00:24:e8:82:d5:6a
+lip=192.168.1.101
+
+gmac=00:23:cd:1f:8f:54
+gip=192.168.1.1
+
+bcast=ff:ff:ff:ff:ff:ff
+
+xmac=00:11:22:33:44:55
+xip=$gip
+
+
+# create some valid arp request/reply packets, followed by their covering ethernet headers
+dnet arp op req sha $gmac spa $gip tpa $lip | dnet eth type arp src $gmac dst $bcast > gw-rq.pkt
+EG: dnet arp op req sha 00:23:cd:1f:8f:54 spa 192.168.1.1 tpa 192.168.1.100 | dnet eth type arp src 00:23:cd:1f:8f:54 dst ff:ff:ff:ff:ff:ff > gw-rq.pkt
+
+dnet arp op rep sha $gmac spa $gip tha $lmac tpa $lip | dnet eth type arp src $gmac dst $lmac > gw-rp.pkt
+EG: dnet arp op rep sha 00:23:cd:1f:8f:54 spa 192.168.1.1 tha 00:24:e8:82:d5:6a tpa 192.168.1.100 | dnet eth type arp src 00:23:cd:1f:8f:54 dst 00:24:e8:82:d5:6a > gw-rp.pkt
+
+# create some invalid arp request/reply packets, followed by their covering ethernet headers
+dnet arp op req sha $xmac spa $xip tpa $lip | dnet eth type arp src $xmac dst $bcast > xx-rq.pkt
+EG: dnet arp op req sha 00:11:22:33:44:55 spa 192.168.1.1 tpa 192.168.1.101 | dnet eth type arp src 00:11:22:33:44:55 dst ff:ff:ff:ff:ff:ff > xx-rq.pkt
+
+dnet arp op rep sha $xmac spa $xip tha $lmac tpa $lip | dnet eth type arp src $xmac dst $lmac > xx-rp.pkt
+EG: dnet arp op rep sha 00:11:22:33:44:55 spa 192.168.1.1 tha 00:24:e8:82:d5:6a tpa 192.168.1.101 | dnet eth type arp src 00:11:22:33:44:55 dst 00:24:e8:82:d5:6a > xx-rp.pkt
+
+
+# send some arp packets via eth0
+dnet send eth0 < <filename>
+EG: dnet send eth0 < xx-rq.pkt
+
+
+# EOF #

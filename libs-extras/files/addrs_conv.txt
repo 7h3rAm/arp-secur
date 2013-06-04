@@ -1,0 +1,79 @@
+/* libnet based address routines */
+
+	char ip_str[16], mac_str[18];
+	int length;
+
+	ip_addr = libnet_name2addr4(l, ip_addr_str, LIBNET_DONT_RESOLVE);
+	mac_addr = libnet_hex_aton((int8_t*)mac_addr_str, &length);
+
+
+
+	u_int32_t ip_addr;
+	ip_addr = libnet_get_ipaddr4 (l);
+	if ( ip_addr != -1 ) { snprintf (llip, "%s", libnet_addr2name4 (ip_addr, LIBNET_DONT_RESOLVE)); }
+
+	struct libnet_ether_addr *mac_addr;
+	mac_addr = libnet_get_hwaddr(l);       
+        if ( src_mac_addr == NULL ) {
+                fprintf(stderr, "Couldn't get own IP address: %s\n", libnet_geterror(l));
+                libnet_destroy(l);
+                exit(EXIT_FAILURE);
+        }
+	snprintf (llmac, "%02x:%02x:%02x:%02x:%02x:%02x", mac_addr->ether_addr_octet[0], mac_addr->ether_addr_octet[1],
+        							mac_addr->ether_addr_octet[2], mac_addr->ether_addr_octet[3],
+        							mac_addr->ether_addr_octet[4], mac_addr->ether_addr_octet[5]);
+
+**************************************************************************************************************************************************************
+
+
+/*
+ * Converts a 48 bit ethernet address to its string representation
+ */
+char *
+mactoa (struct ether_addr *e) {
+
+	static char *s;
+	if (s == 0) {
+		s = (char *)malloc (18);
+		if (s == 0)
+			return (0);
+	}
+	s[0] = 0;
+	sprintf (s, "%02x:%02x:%02x:%02x:%02x:%02x", e->ether_addr_octet[0], e->ether_addr_octet[1], e->ether_addr_octet[2], e->ether_addr_octet[3], e->ether_addr_octet[4], e->ether_addr_octet[5]);
+	return s;
+
+}//mactoa
+
+
+/*
+ * Converts an ethernet address representation back to 48 bits
+ */
+struct ether_addr *
+atomac (char *s) {
+
+	static struct ether_addr *ep;
+	register int i;
+	unsigned int t[6];
+	if (ep == 0) {
+		ep = (struct ether_addr *)calloc (1, sizeof (struct ether_addr));
+		if (ep == 0)
+			return (0);
+	}
+	i = sscanf (s, " %x:%x:%x:%x:%x:%x", &t[0], &t[1], &t[2], &t[3], &t[4], &t[5]);
+	if (i != 6)
+	    return ((struct ether_addr *)NULL);
+	for (i = 0; i < 6; i++)
+		ep->ether_addr_octet[i] = t[i];
+	return ep;
+
+}//atomac
+
+
+*********************************************************************************************
+
+void
+print_mac (u_char var[6]) {
+printf("%2x:%2x:%2x:%2x:%2x:%2x", var[0], var [1], var[2], var[3], var[4], var[5]);
+}
+
+/* EOF */

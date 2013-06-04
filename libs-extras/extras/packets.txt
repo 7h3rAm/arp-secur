@@ -1,0 +1,30 @@
+# dnet packet building commands to test arp-secur response to invalid/poisoned arp packets
+# the xx-rq.pkt (line #20) command sends an invalid arp request
+# the xx-rp.pkt (line #27) command sends an invalid arp reply
+
+
+$rishi-mac=54:42:49:ec:0a:e0
+$rishi-ip=192.168.1.200
+
+$jitendra-mac=78:ac:c0:3f:1c:47
+$jitendra-ip=192.168.1.150
+
+$meghraj-mac=54:42:49:e7:92:94
+$meghraj-ip=192.168.1.100
+
+
+# create an invalid arp request packet, followed by their covering ethernet headers
+dnet arp op req sha $jitendra-mac spa $meghraj-ip tpa $rishi-ip | dnet eth type arp src $jitendra-mac dst $bcast > xx-rq.pkt
+
+# EG:
+# dnet arp op req sha 78:ac:c0:3f:1c:47 spa 192.168.1.100 tpa 192.168.1.200 | dnet eth type arp src 78:ac:c0:3f:1c:47 dst ff:ff:ff:ff:ff:ff > xx-rq.pkt
+
+
+# create an invalid arp reply packet, followed by their covering ethernet headers
+dnet arp op rep sha $jitendra-mac spa $meghraj-ip tha $rishi-mac tpa $rishi-ip | dnet eth type arp src $jitendra-mac dst $rishi-mac > xx-rp.pkt
+
+# EG:
+# dnet arp op rep sha 78:ac:c0:3f:1c:47 spa 192.168.1.200 tha 54:42:49:ec:0a:e0 tpa 192.168.1.200 | dnet eth type arp src 78:ac:c0:3f:1c:47 dst 54:42:49:ec:0a:e0 > xx-rp.pkt
+
+
+# EOF #

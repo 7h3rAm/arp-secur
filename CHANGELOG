@@ -1,0 +1,11 @@
+# Changelog for arp-secur v0.3
+# 2011-04-09
+
+1. Added range checks for port numbers and reply timeout CL options.
+2. Added a new feature to display session summary via system pop ups. Can be enabled via CL option -o.
+3. Added a new feature to display contents of received and injected packets. Can be enabled via CL option -v.
+4. Corrected the source port number extraction code for the injected TCP / UDP packets.
+5. Corrected the TCP flags setup code. Can now enable multiple flags by combining CLI options -arsf.
+6. Added a new random welcome banner display feature.
+
+#EOF

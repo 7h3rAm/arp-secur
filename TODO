@@ -1,0 +1,12 @@
+# TODO for arp-safe v0.3
+# 2011-04-09
+
+1. Process broadcast ARP REQUEST packet from A > B (where we are C).
+	Broadcast received by our system and arp-safe application
+	arp-safe ignores it because the arp request is for B
+	Will this broadcast request for B create an arp cache entry on C?
+	If yes, then we need to consider it as well for our spoof-detection logic
+
+2. Sanitize!!!
+
+#EOF

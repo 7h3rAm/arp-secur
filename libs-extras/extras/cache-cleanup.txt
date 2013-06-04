@@ -1,0 +1,9 @@
+
+
+char *arp-cache-clean = "arp -d ";
+strncat (arp-cache-clean, sip);
+printf ("\n [!] arp-cache-clean: %s \n", arp-cache-clean);
+system (arp-cache-clean);
+arp-cache-clean = "arp -d ";
+
+
