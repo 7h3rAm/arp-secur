@@ -1,4 +1,4 @@
 arp-secur v0.3
 
-This is a proof-of-concept implementation of an idea I had while reading about ARP cache poisoning attacks. The stateless nature of ARP introduces many inherent flaws that attackers leverage to cause havoc. This tool implements the ideas proposed in the "Detecting ARP Spoofing: An Active Technique" paper by Mr. Vivek Ramachandran and Mr. Sukumar Nandi. It uses a state maintenance feature that helps to identify malicious ARP requests/responses.
+The stateless nature of ARP introduces many inherent flaws that attackers leverage to cause havoc. This tool implements ideas proposed in the "Detecting ARP Spoofing: An Active Technique" paper by Mr. Vivek Ramachandran and Mr. Sukumar Nandi (http://www.vivekramachandran.com/docs/arp-spoofing.pdf). It uses a state maintenance features that help to identify malicious ARP requests/responses.
 
